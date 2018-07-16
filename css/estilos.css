@@ -1,0 +1,37 @@
+body {
+    background: #eee;
+}
+#principal {
+    background: #fff;
+    min-height: 103vh;
+}
+#banner {
+    max-height: 200px;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+.card {
+    width: 300px;
+    float: left;
+    margin-right: 2em;
+    margin-bottom: 2em;
+    height: 400px;
+}
+.card-list {
+    clear: both;
+}
+.btn-add {
+    float: right;
+}
+
+.card .card-img-top {
+    max-width: 300px;
+    max-height: 150px;
+}
+
+.imgPost {
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+}
