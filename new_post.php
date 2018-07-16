@@ -1,5 +1,6 @@
 <?php
-    require("configuracion.php");
+    session_start();
+    require("conexion.php");
 
 if (!empty($_POST)) { // Viene un POST con datos => agrego el registro
 
@@ -24,9 +25,11 @@ if (!empty($_POST)) { // Viene un POST con datos => agrego el registro
   //Al finalizar vuelvo a la pagina inicial
 
   header('Location: index.php');
+
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
     <head>
@@ -42,28 +45,41 @@ if (!empty($_POST)) { // Viene un POST con datos => agrego el registro
             <a href="index.php" class="btn">Home</a>
 
              <h1>Agregar nuevo post</h1>
+            
+             <?php
 
-             <form method="post" enctype="multipart/form-data">
-                 <div class="form-row">
-                   <div class="form-group col-md-6">
-                     <label for="titulo">Titulo</label>
-                     <input type="text" class="form-control" id="titulo" placeholder="Titulo" name="titulo">
-                   </div>
-                   <div class="form-group col-md-6">
-                       <label for="archivo">Imagen portada</label>
-                       <input type="file" class="form-control-file" id="archivo" name="imagen">
-                   </div>
+             if (isset($_SESSION['logueado']) && $_SESSION['logueado'] == true)
+             {
+               echo '<form method="post" enctype="multipart/form-data">
+               <div class="form-row">
+                 <div class="form-group col-md-6">
+                   <label for="titulo">Titulo</label>
+                   <input type="text" class="form-control" id="titulo" placeholder="Titulo" name="titulo">
                  </div>
-                 <div class="form-row">
-                     <div class="form-group col-md-10">
-                       <label for="contenido">Contenido</label>
-                       <textarea class="form-control" id="contenido" placeholder="Contenido" name="contenido"></textarea>
-                     </div>
+                 <div class="form-group col-md-6">
+                     <label for="archivo">Imagen portada</label>
+                     <input type="file" class="form-control-file" id="archivo" name="imagen">
                  </div>
+               </div>
+               <div class="form-row">
+                   <div class="form-group col-md-10">
+                     <label for="contenido">Contenido</label>
+                     <textarea class="form-control" id="contenido" placeholder="Contenido" name="contenido"></textarea>
+                   </div>
+               </div>
 
-                 <input type="submit" value="Agregar" class="btn btn-primary">
-                 <a href="index.php" class="btn">Cancelar</a>
-             </form>
+               <input type="submit" value="Agregar" class="btn btn-primary">
+               <a href="index.php" class="btn">Cancelar</a>
+           </form>';
+             }
+             else
+             {
+               echo '<p class="text-center"> Debes estar logueado para poder escribir un nuevo post </p><a href="login.php" class="btn btn-primary btn-add">login</a> ';
+             }   
+
+             ?>
+
+             
          </div>
 
      </body>

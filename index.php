@@ -1,5 +1,5 @@
 <?php
-    require("configuracion.php");
+    require("conexion.php");
 
       //Se conecta a la base de datos
 
@@ -21,6 +21,7 @@
       //Se obtienen los ultimos 5 elementos de una base datos
 
       $obtenerTablaUltimos = mysqli_query($conexion, "select * from publicacion limit 5 offset $offset1");
+      session_start(); 
 
 ?>
 <!DOCTYPE html>
@@ -37,7 +38,23 @@
         <div class="container" id="principal">
              <h1>Bienvenido a mi blog!</h1>
 
-             <a href="new_post.php" class="btn btn-primary btn-add">Agregar post</a>
+             
+             <?php
+              
+              if (isset($_SESSION['logueado']) && $_SESSION['logueado'] == true)
+              {
+                echo '<a href="new_post.php" class="btn btn-primary btn-add mr-1">Agregar post</a>';
+                echo '<a href="admin.php" class="btn btn-success btn-add mr-1">Administración</a>';
+                echo '<a href="logout.php" class="btn btn-danger btn-add mr-1 ">logout</a>';
+              }
+              else
+              {
+                echo '<a href="login.php" class="btn btn-success btn-add">login</a>';
+              }
+              
+              ?>
+              
+              
 
 
              <h2>Ultimos 5 posts</h2>
