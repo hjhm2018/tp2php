@@ -1,5 +1,5 @@
 <?php
-    require("configuracion.php");
+    require("conexion.php");
 
     //Obtengo el id y lo guardo en una variable
 

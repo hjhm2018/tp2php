@@ -12,7 +12,9 @@
 
   $tituloV = $postViejo['Titulo'];
   $descripcionV = $postViejo['Descripcion'];
-  $direccionV = $postViejo['Direccion'];
+  $direccion1 = $postViejo['Direccion'];
+  $direccion2 = @$_FILES['imagen']['name'];
+  $direccionIfeada = $direccion1;
 
 if (!empty($_POST)) { // Viene un POST con datos => agrego el registro
 
@@ -24,18 +26,29 @@ if (!empty($_POST)) { // Viene un POST con datos => agrego el registro
 
 
   $titulo1 = $_POST['titulo']."";
+
   $descripcion1 = $_POST['contenido']."";
-  $direccion1 = $_FILES['imagen']['name'];
+
+  //if (!$direccion2=="")
+  //{
+  //   $direccion2 = $_FILES['imagen']['name'];
+  //}
+
   
   //El archivo subido lo guardo en la carpeta imagenes, con el nombre del archivo enviado
 
-  move_uploaded_file($_FILES['imagen']['tmp_name'], "./imagenes/$direccion1");
 
   //Guardo los datos en la base de datos 
 
-  $modificar = mysqli_query($conexion, "update publicacion SET Titulo='$titulo1', Descripcion='$descripcion1', Direccion='$direccion1' where id=$id");
-
-
+  if ($direccion2=="")
+  {
+  $modificar = mysqli_query($conexion, "update publicacion SET Titulo='$titulo1', Descripcion='$descripcion1' where id=$id");
+  }
+  else{
+  $direccionIfeada = $direccion2;
+  move_uploaded_file($_FILES['imagen']['tmp_name'], "./imagenes/$direccion2");
+  $modificar = mysqli_query($conexion, "update publicacion SET Titulo='$titulo1', Descripcion='$descripcion1', Direccion='$direccion2' where id=$id");
+}
   //Al finalizar vuelvo a la pagina inicial
 
   header('Location: index.php');
@@ -72,8 +85,8 @@ if (!empty($_POST)) { // Viene un POST con datos => agrego el registro
                  </div>
                  <div class="form-group col-md-6">
                      <label for="archivo">Imagen portada</label>
-                     <input type="file" class="form-control-file" id="archivo" name="imagen" value="'.$direccionV.'">
-                     <img src="imagenes/'.$direccionV.'" class="img-thumbnail">
+                     <input type="file" class="form-control-file" id="archivo" name="imagen" value="'.$direccionIfeada.'">
+                     <img src="imagenes/'.$direccion1.'" class="img-thumbnail">
                  </div>
                </div>
                <div class="form-row">
